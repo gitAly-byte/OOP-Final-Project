@@ -1,93 +1,122 @@
-package Method;
+package Methods;
 
+import javax.swing.plaf.synth.SynthOptionPaneUI;
+import java.awt.*;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.SortedMap;
 
-public class Admin extends Student {
-    private Scanner sc_admin = new Scanner(System.in);
-    private String email = "Admin1";
+public class Admin {
+    Scanner sc = new Scanner(System.in);
+    private String admin_email = "Admin123";
     private String password = "AdminPassword";
-    private Student student; // study this one
+    private Student student;
 
-    //and also thiss oneee
     public Admin(Student student) {
         this.student = student;
     }
 
-
-    public void login_Admin() {
-        System.out.println(" = ".repeat(7) + "LOGIN ADMIN" + " = ".repeat(7));
-        System.out.print("Admin G-Suite: ");
-        String admin_gsuite = sc_admin.nextLine();
+    public void login() {
+        Welcome welcomeAdmin = new Welcome() {
+            @Override
+            void welcome() {
+                System.out.println(" - ".repeat(7) + "Login Admin" + " - ".repeat(7));
+            }
+        };
+        System.out.print("Admin Email: ");
+        String email = sc.nextLine();
         System.out.print("Admin Password: ");
-        String admin_password = sc_admin.nextLine();
-        if (admin_gsuite.equals(getEmail()) && admin_password.equals(getPassword())) {
-            System.out.println(" - ".repeat(7) + "Welcome Admin!" + " - ".repeat(7));
-            System.out.println("\f");
-            System.out.println(" - ".repeat(20));
+        String pass = sc.nextLine();
+        if (email.equals(admin_email) && pass.equals(password)) {
             while (true) {
-                System.out.println("[1] View Student Enter\n[2] View Borrowed Book\n[3] Return Book\n[4] Exit");
-                System.out.print("Enter a number: ");
-                int num = sc_admin.nextInt();
+                System.out.println("\t[1] Student Login\n\t[2] Borrowed Book\n\t[3] Returned Book\n\t[4] Exit");
+                System.out.print("\t\tEnter number: ");
+                int num = sc.nextInt();
                 if (num == 1) {
-                    student.showUser();
+                    studentLogin();
                 } else if (num == 2) {
-                    viewBorrowedBook(student);
+                    borrowedBook();
                 } else if (num == 3) {
-                    returnBook();
+                    returnedBook();
                 } else if (num == 4) {
                     break;
-                }else {
-                    System.out.println("Invalid input.");
+                } else {
+                    System.out.println("Invalid input, re-try.");
                 }
             }
         }
     }
 
-    public void viewBorrowedBook(Student student){
-        System.out.println(" = ".repeat(20));
-        for (User u: student.user){
-            System.out.println("Student G-Suite: " + u.getGsuite());
-            System.out.println("Student Sr-Code: " + u.getSr_code());
-        }
-        for (Map.Entry<Integer, String> borrowed : student.borrowed.entrySet()){
-            int id = borrowed.getKey();
-            String title = borrowed.getValue();
-            System.out.println("Book ID: " + id + " Title: " + title);
-            System.out.println(" = ".repeat(20));
+    public void studentLogin() {
+        Welcome welcomeStudent = new Welcome() {
+            @Override
+            void welcome() {
+                System.out.println(" - ".repeat(7) + " Student Login " + " - ".repeat(7));
+            }
+        };
+        if (student.user.isEmpty()) {
+            welcomeStudent.welcome();
+            System.out.println("\t\tNo Student login yet.");
+        } else {
+            for (User u : student.user) {
+                welcomeStudent.welcome();
+                System.out.println("\t\tStudent Name: " + u.getG_suite());
+                System.out.println("\t\tSr-Code: " + u.getSr_code());
+                System.out.println("\t\tTime Login: " + u.getLocalTime());
+                System.out.println("\t\tDate Login: " + u.getLocalDate());
+                System.out.println(" - ".repeat(22));
+            }
         }
     }
-    public void returnBook(Student student) {
-        System.out.println(" = ".repeat(20));
-        for (User u : student.user){
-            System.out.println("Student G-Suite: " + u.getGsuite());
-            System.out.println("Student Sr-Code: " + u.getGsuite());
-        }
-        for (Map.Entry<Integer, String> returned_value : student.returned.entrySet()) {
-            int id = returned_value.getKey();
-            String title = returned_value.getValue();
-            System.out.println("ID: " + id + " Title: " + title);
-            System.out.println(" = ".repeat(20));
-        }
 
+    public void borrowedBook() {
+        Welcome welcomeBorrowed = new Welcome() {
+            @Override
+            void welcome() {
+                System.out.println(" - ".repeat(8) + " BORROWED BOOK " + " - ".repeat(9));
+            }
+        };
+        if (student.borrow.isEmpty()) {
+            welcomeBorrowed.welcome();
+            System.out.println("\tNo borrowed Book yet.");
+        } else {
+            welcomeBorrowed.welcome();
+            for (Map.Entry<Integer, String> entry : student.borrow.entrySet()) {
+                Integer id = entry.getKey();
+                String title = entry.getValue();
+                for (User u : student.user) {
+                    System.out.println("\t\tStudent Name: " + u.getG_suite());
+                    System.out.println("\t\tSr-Code: " + u.getSr_code());
+                    System.out.println("\t\tBook ID: " + id);
+                    System.out.println("\t\tBook Title: " + title);
+                    System.out.println(" - ".repeat(22));
+                }
+            }
+        }
     }
-        public String getEmail () {
-            return email;
+    public void returnedBook(){
+        Welcome returnedWelcome = new Welcome() {
+            @Override
+            void welcome() {
+                System.out.println(" - ".repeat(8) + " RETURNED BOOK " + " - ".repeat(9));
+            }
+        };
+        if (student.return_book.isEmpty()){
+            returnedWelcome.welcome();
+            System.out.println("\t\tNo book has been return yet.");
+            System.out.println(" - ".repeat(22));
+        }else {
+            for (Map.Entry<Integer, String> returned : student.return_book.entrySet()) {
+                Integer id = returned.getKey();
+                String title = returned.getValue();
+                for (User u : student.user) {
+                    returnedWelcome.welcome();
+                    System.out.println("\t\tStudent Name: " + u.getG_suite());
+                    System.out.println("\t\tSr-Code: " + u.getSr_code());
+                    System.out.println("\t\tBook ID: " + id);
+                    System.out.println("\t\tBook Title: " + title);
+                    System.out.println(" - ".repeat(22));
+                }
+            }
         }
-
-        public void setEmail (String email){
-            this.email = email;
-        }
-
-        public String getPassword () {
-            return password;
-        }
-
-        public void setPassword (String password){
-            this.password = password;
-        }
-
     }
-
-
+}
