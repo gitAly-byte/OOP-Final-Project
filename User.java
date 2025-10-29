@@ -1,26 +1,26 @@
-package Method;
-
+package Methods;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class User {
-    private String gsuite;
+    private String g_suite;
     private String sr_code;
-    private LocalDate date_login;
-    private LocalTime time_login;
-    public User(String gsuite, String sr_code, LocalDate date_login, LocalTime time_login){
-        this.gsuite = gsuite;
+    private LocalTime localTime;
+    private LocalDate localDate;
+
+    public User(String g_suite, String sr_code, LocalTime localTime, LocalDate localDate){
+        this.g_suite = g_suite;
         this.sr_code = sr_code;
-        this.date_login = LocalDate.now();
-        this.time_login = LocalTime.now();
+        this.localTime = LocalTime.now();
+        this.localDate = LocalDate.now();
     }
 
-    public String getGsuite() {
-        return gsuite;
+    public String getG_suite() {
+        return g_suite;
     }
 
-    public void setGsuite(String gsuite) {
-        this.gsuite = gsuite;
+    public void setG_suite(String g_suite) {
+        this.g_suite = g_suite;
     }
 
     public String getSr_code() {
@@ -31,19 +31,19 @@ public class User {
         this.sr_code = sr_code;
     }
 
-    public LocalDate getDate_login() {
-        return date_login;
+    public LocalTime getLocalTime() {
+        return localTime;
     }
 
-    public void setDate_login(LocalDate date_login) {
-        this.date_login = date_login;
+    public void setLocalTime(LocalTime localTime) {
+        this.localTime = localTime;
     }
 
-    public LocalTime getTime_login() {
-        return time_login;
+    public LocalDate getLocalDate() {
+        return localDate;
     }
 
-    public void setTime_login(LocalTime time_login) {
-        this.time_login = time_login;
+    public void setLocalDate(LocalDate localDate) {
+        this.localDate = localDate;
     }
 }
