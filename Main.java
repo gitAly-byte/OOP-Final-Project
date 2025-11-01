@@ -10,7 +10,9 @@ public class Main {
         Admin admin = new Admin(student);
         while (true){
             System.out.println(" - ".repeat(22));
-            System.out.println("\t[1] Admin\n\t[2] Student\n\t[3] Exit");
+            System.out.println("\t[1] Admin");
+            System.out.println("\t[2] Student");
+            System.out.println("\t[3] Exit");
             System.out.print("\t\tEnter a number: ");
             int num = sc.nextInt();
             if (num == 1){
