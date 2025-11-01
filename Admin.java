@@ -28,7 +28,11 @@ public class Admin {
         String pass = sc.nextLine();
         if (email.equals(admin_email) && pass.equals(password)) {
             while (true) {
-                System.out.println("\t[1] Student Login\n\t[2] Borrowed Book\n\t[3] Returned Book\n\t[4] Exit");
+                System.out.println("\t[1] Student Login");
+                System.out.println("\t[2] Borrowed Book");
+                System.out.println("\t[3] Returned Book");
+                System.out.println("\t[4] View Available Books");
+                System.out.println("\t[5] Exit");
                 System.out.print("\t\tEnter number: ");
                 int num = sc.nextInt();
                 if (num == 1) {
@@ -38,6 +42,9 @@ public class Admin {
                 } else if (num == 3) {
                     returnedBook();
                 } else if (num == 4) {
+                    View view = new View();
+                    view.showAvailableBooks();
+                } else if (num == 5) {
                     break;
                 } else {
                     System.out.println("Invalid input, re-try.");
@@ -120,3 +127,4 @@ public class Admin {
         }
     }
 }
+
