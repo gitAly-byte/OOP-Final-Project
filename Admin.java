@@ -7,8 +7,8 @@ import java.util.Scanner;
 
 public class Admin {
     Scanner sc = new Scanner(System.in);
-    private String admin_email = "Admin123";
-    private String password = "AdminPassword";
+    private String admin_email = "admin";
+    private String password = "admin123";
     private Student student;
 
     public Admin(Student student) {
@@ -32,9 +32,12 @@ public class Admin {
                 System.out.println("\t[2] Borrowed Book");
                 System.out.println("\t[3] Returned Book");
                 System.out.println("\t[4] View Available Books");
-                System.out.println("\t[5] Exit");
+                System.out.println("\t[5] Add New Book");
+                System.out.println("\t[6] Exit");
                 System.out.print("\t\tEnter number: ");
                 int num = sc.nextInt();
+                sc.nextLine();
+
                 if (num == 1) {
                     studentLogin();
                 } else if (num == 2) {
@@ -45,6 +48,9 @@ public class Admin {
                     View view = new View();
                     view.showAvailableBooks();
                 } else if (num == 5) {
+                    AddBook addBook = new AddBook();
+                    addBook.addNewBook();
+                } else if (num == 6) {
                     break;
                 } else {
                     System.out.println("Invalid input, re-try.");
@@ -127,4 +133,3 @@ public class Admin {
         }
     }
 }
-
